@@ -32,7 +32,7 @@
     "include": "~/.config/waybar/bars/bar-3.jsonc",
     "height": 45,
     "layer": "top",
-    "output": "DP-3",
+    "output": "DP-1",
     "mode": "dock",
     "exclusive": true,
     "passtrough": false,
