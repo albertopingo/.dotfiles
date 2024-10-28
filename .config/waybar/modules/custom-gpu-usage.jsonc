@@ -1,9 +1,9 @@
 {
   "custom/gpu-usage": {
-    "exec": "cat /sys/class/hwmon/hwmon4/device/gpu_busy_percent",
+    "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
     "on-click": "pypr toggle nvtop",
     "format": "GPU: {}%",
-    "return-type": "",
+    "return-type": "int",
     "interval": 2,
   },
 }
