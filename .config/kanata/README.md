@@ -1,6 +1,6 @@
 # My Kanata Config
 
-This repository contains my custom Kanata configuration, inspired by the [Arsenik](https://github.com/OneDeadKey/arsenik) project by [OneDeadKey](https://github.com/OneDeadKey).
+This is my Kanata configuration, inspired by the [Arsenik](https://github.com/OneDeadKey/arsenik) project by [OneDeadKey](https://github.com/OneDeadKey).
 
 ## Layout Overview
 
