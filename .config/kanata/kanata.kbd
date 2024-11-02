@@ -48,7 +48,7 @@
 ;;-----------------------------------------------------------------------------
 ;; Aliases for `Symbols` and `Navigation` layers
 
-(include defalias/qwerty-lafayette_pc.kbd)  ;; Qwerty‑Lafayette PC
+(include defalias/qwerty_pc.kbd)  ;; Qwerty‑Lafayette PC
 
 ;;-----------------------------------------------------------------------------
 ;; Extra configuration
