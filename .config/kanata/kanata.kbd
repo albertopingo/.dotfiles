@@ -1,24 +1,27 @@
 ;;==========================================================================;;
 ;;                                                                          ;;
-;;  With Arsenik, choose the features you want for your keyboard:           ;;
-;;  angle mods, Vim-like navigation layer, Mac/Azerty/Qwertz support, etc.  ;;
+;;                                 Arsenik                                  ;;
 ;;                                                                          ;;
 ;;==========================================================================;;
+;; Live-reload Config:  (requires layer-taps) 
+;; Space + Backspace
 
-;; Live-reload the configuration with Space+Backspace (requires layer-taps).
 
 ;; Timing variables for tap-hold effects.
+
 (defvar
   ;; The key must be pressed twice in 200ms to enable repetitions.
-  tap_timeout 200
+  tap_timeout 150
   ;; The key must be held 200ms to become a layer shift.
-  hold_timeout 200
+  hold_timeout 180
   ;; Slightly higher value for typing keys, to prevent unexpected hold effect.
-  long_hold_timeout 200
+  long_hold_timeout $hold_timeout
 )
+
 
 ;;-----------------------------------------------------------------------------
 ;; Original key arrangement on your keyboard: Pc
+
 (include defsrc/pc.kbd)  ;; PC, standard finger assignment
 
 
@@ -27,6 +30,7 @@
 
 (include deflayer/base_lt_hrm.kbd)  ;; layer-taps + home-row mods
 
+
 ;;-----------------------------------------------------------------------------
 ;; `Symbols` layer
 
@@ -34,7 +38,7 @@
 
 
 ;;-----------------------------------------------------------------------------
-;; `Navigation` layer: ESDF or HJKL?
+;; `Navigation` layer:
 
 (include deflayer/navigation_vim.kbd)  ;; HJKL + NumPad on [Space]+[Q]
 
@@ -50,6 +54,7 @@
 
 (include defalias/qwerty_pc.kbd)  ;; Qwerty‑Lafayette PC
 
+
 ;;-----------------------------------------------------------------------------
 ;; Extra configuration
 ;; You should not modify this, only if you need to.
@@ -60,5 +65,6 @@
   process-unmapped-keys yes
   windows-altgr cancel-lctl-press
 )
+
 
 ;; vim: set ft=lisp

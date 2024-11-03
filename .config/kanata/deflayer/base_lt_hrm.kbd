@@ -21,10 +21,10 @@
 
   ;; Home-row mods
   ss (tap-hold $tap_timeout $long_hold_timeout s lmet)
-  dd (tap-hold $tap_timeout $long_hold_timeout d lctl)
-  ff (tap-hold $tap_timeout $long_hold_timeout f lalt)
-  jj (tap-hold $tap_timeout $long_hold_timeout j lalt)
-  kk (tap-hold $tap_timeout $long_hold_timeout k rctl)
+  dd (tap-hold $tap_timeout $long_hold_timeout d lalt)
+  ff (tap-hold $tap_timeout $long_hold_timeout f lctl)
+  jj (tap-hold $tap_timeout $long_hold_timeout j rctl)
+  kk (tap-hold $tap_timeout $long_hold_timeout k ralt)
   ll (tap-hold $tap_timeout $long_hold_timeout l rmet)
 )
 
