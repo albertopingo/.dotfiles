@@ -6,54 +6,40 @@
 ;; Live-reload Config:  (requires layer-taps) 
 ;; Space + Backspace
 
-
 ;; Timing variables for tap-hold effects.
-
 (defvar
   ;; The key must be pressed twice in 200ms to enable repetitions.
   tap_timeout 150
   ;; The key must be held 200ms to become a layer shift.
-  hold_timeout 180
+  hold_timeout 200
   ;; Slightly higher value for typing keys, to prevent unexpected hold effect.
-  long_hold_timeout $hold_timeout
+  long_hold_timeout 200
 )
-
 
 ;;-----------------------------------------------------------------------------
 ;; Original key arrangement on your keyboard: Pc
 
 (include defsrc/pc.kbd)  ;; PC, standard finger assignment
 
-
 ;;-----------------------------------------------------------------------------
 ;; `Base` layer: 
 
 (include deflayer/base_lt_hrm.kbd)  ;; layer-taps + home-row mods
-
 
 ;;-----------------------------------------------------------------------------
 ;; `Symbols` layer
 
 (include deflayer/symbols_lafayette_num.kbd)  ;; AltGr prog layer + NumRow layers
 
-
 ;;-----------------------------------------------------------------------------
 ;; `Navigation` layer:
 
 (include deflayer/navigation_vim.kbd)  ;; HJKL + NumPad on [Space]+[Q]
 
-;; Replace XX by the keyboard shortcut of your application launcher, if any.
-;; Mapped on [Space]+[P] in both navigation layers.
-
-;; (defalias run M-p)  ;; [Command]-[P]
-(defalias run XX)  ;; do nothing
-
-
 ;;-----------------------------------------------------------------------------
 ;; Aliases for `Symbols` and `Navigation` layers
 
 (include defalias/qwerty_pc.kbd)  ;; Qwerty‑Lafayette PC
-
 
 ;;-----------------------------------------------------------------------------
 ;; Extra configuration
@@ -65,6 +51,5 @@
   process-unmapped-keys yes
   windows-altgr cancel-lctl-press
 )
-
 
 ;; vim: set ft=lisp
