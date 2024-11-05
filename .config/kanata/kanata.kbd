@@ -1,62 +1,82 @@
 ;;==========================================================================;;
 ;;                                                                          ;;
-;;                                 Arsenik                                  ;;
+;;                         Kanata 33/34-key Config                          ;;
+;;                            by Alberto Pingo                              ;;
 ;;                                                                          ;;
 ;;==========================================================================;;
-;; Live-reload Config:  (requires layer-taps) 
-;; Space + Backspace
+;;                                                                          ;;
+;;                            Based on Arsenik                              ;;
+;;                   https://github.com/OneDeadKey/arsenik                  ;;
+;;                                                                          ;;
+;;                   Live-reload Config: Space + Backspace                  ;;
+;;                                                                          ;;
+;;                                                                          ;;
+;; Notes:                                                                   ;;
+;; - Backspace only for live-reload                                         ;;
+;; - From 33 to 34 keys - Added Capslock as Esc (Not needed, testing)       ;;
+;;                                                                          ;;
 
-;; Timing variables for tap-hold effects.
+
+;;--------------------------------------------------------------------------;;
+;;                                Variables                                 ;;
+;;--------------------------------------------------------------------------;;
+;;                        Timing for tap-hold effects                       ;;
+;;                                                                          ;;
+
 (defvar
-  ;; The key must be pressed twice in 200ms to enable repetitions.
-  tap_timeout 200
-  ;; The key must be held 200ms to become a layer shift.
-  hold_timeout 200
-  ;; Slightly higher value for typing keys, to prevent unexpected hold effect.
-  long_hold_timeout 250
+  tap_timeout 180         ;; Press twice timing to enable repetitions  
+  hold_timeout 200        ;; Held time to become a layer shift  
+  long_hold_timeout 220   ;; Higher value for typing keys, prevent unexpected hold effect.
 )
 
-;;---------------------------------------------------------------------------;;
-;;                                  Source                                   ;;
-;;---------------------------------------------------------------------------;;
+
+;;--------------------------------------------------------------------------;;
+;;                                  Source                                  ;;
+;;--------------------------------------------------------------------------;;
+;;                                Raw inputs                                ;;
+;;                                                                          ;;
 
 (defsrc
-  1    2    3    4    5  bspc   6    7    8    9    0
+            caps                          bspc
   q    w    e    r    t         y    u    i    o    p
   a    s    d    f    g         h    j    k    l    ;
-  z    x    c    v    b    <    n    m    ,    .    /
+  z    x    c    v    b         n    m    ,    .    /
             lalt          spc             ralt
-  caps
+  
 )
 
-;;---------------------------------------------------------------------------;;
-;;                                  Layers                                   ;;
-;;---------------------------------------------------------------------------;;
+
+;;--------------------------------------------------------------------------;;
+;;                                  Layers                                  ;;
+;;--------------------------------------------------------------------------;;
+;;                         Base, Nav, Symb and Func                         ;;
+;;                                                                          ;;
 
 ;;----------------------------------------;;
 ;;               Base Layer               ;;
 ;;----------------------------------------;;
-;; Layer-taps + home-row mods
+;;       Layer-taps + home-row mods       ;;
 
 (deflayer base
-  _    _    _    _    _    _    _    _    _    _    _
-  q    w    e    r    t         y    u    i    o    p
-  @aa    @ss  @dd  @ff  g         h    @jj  @kk  @ll  @rsft
-  z    x    c    v    b    <    n    m    ,    .    /
-            @sft          @nav            @sym
-	grave
+            esc                          _
+  q    w    e    r    t        y    u    i    o    p
+  @aa  @ss  @dd  @ff  g        h    @jj  @kk  @ll  @rs
+  z    x    c    v    b        n    m    ,    .    /
+            @sft         @nav            @sym
+	
 )
 
-;; Timing variables are defined in `kanata.kbd` file.
-
 (defalias
-  ;; Main mod-tap: Nav layer when held, Space when tapped.
+  ;; Space tap / `Nav layer` held 
   nav (tap-hold $tap_timeout $long_hold_timeout spc (layer-while-held navigation))
 
-  sft (tap-hold $tap_timeout $hold_timeout bspc lsft)
+  ;; Backspace tap / Lshift held
+  sft (tap-hold $tap_timeout $hold_timeout bspc lsft) ;; *Can be another layer if needed*
+
+  ;; Enter tap / `Symbols layer` held
   sym (tap-hold $tap_timeout $hold_timeout ret (layer-while-held symbols))
 
-  ;; Home-row mods
+  ;; Home-row mods (HRM)
   aa (tap-hold $tap_timeout $long_hold_timeout a lsft)
   ss (tap-hold $tap_timeout $long_hold_timeout s lmet)
   dd (tap-hold $tap_timeout $long_hold_timeout d lalt)
@@ -65,46 +85,44 @@
   jj (tap-hold $tap_timeout $long_hold_timeout j rctl)
   kk (tap-hold $tap_timeout $long_hold_timeout k ralt)
   ll (tap-hold $tap_timeout $long_hold_timeout l rmet)
-  rsft (tap-hold $tap_timeout $long_hold_timeout ; rsft)
+  rs (tap-hold $tap_timeout $long_hold_timeout ; rsft) 
 )
 
 ;;----------------------------------------;;
 ;;              Symbol Layer              ;;
 ;;----------------------------------------;;
-;; Lafayette/Ergo‑L AltGr programmation layer
+;;  Lafayette/Ergo‑L Programmation layer  ;;
 
 (deflayer symbols
-  AG-1 AG-2 AG-3 AG-4 AG-5 XX   AG-6 AG-7 AG-8 AG-9 AG-0
-  @^   @<   @>   @$   @%        @@   @&   @*   @'   @`
-  @{   @pl  @pr  @}   @=        @\   @+   @-   @/   @''
-  @~   @[   @]   @_   @#   XX   @|   @!   @;   @:   @?
-            _           spc             _
-  esc
+            esc                          XX
+  @^   @<   @>   @$   @%       @@   @&   @*   @'   @`
+  @{   @pl  @pr  @}   @=       @\   @+   @-   @/   @''
+  @~   @[   @]   @_   @#       @|   @!   @;   @:   @?
+            _             spc            _  
 )
 
 ;;----------------------------------------;;
-;;              Vim-Navigation Layer              ;;
+;;          Vim-Navigation Layer          ;;
 ;;----------------------------------------;;
-;; Vim-like arrows on HJKL, home/end page up/down
-;; The `lrld` action stands for "live reload".
+;;         Vim-like arrows on HJKL        ;;
+;;       Live reload = `lrld` action      ;; 
 
 (deflayer navigation
-  M-1  M-2  M-3  M-4  M-5  lrld M-6  M-7  M-8  M-9  M-0
-  @1   @2   @3   @4   @5        @6   @7   @8   @9   @0
-  @ls  @lm  @la  @lc  tab       lft  down up   rght @fun
-  @udo @cp  @pst @cut @rdo  _   ins  pgdn pgup home end
-            del             _             esc
-	esc
+            esc                          lrld
+  @1   @2   @3   @4   @5       @6   @7   @8   @9   @0
+  @ls  @lm  @la  @lc  tab      lft  down up   rght @fun
+  @udo @cut @cp  @pst @rdo     ins  pgdn pgup home end
+            del             _            esc	
 )
 
-;; function keys
+;; Sub-layer - Function keys
 (deflayer funpad
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  f1   f2   f3   f4   f5        XX   XX   XX   XX   XX
-  f6   f7   f8   f9   f10       XX   @lc  @la  @lm  _
-  f11  f12  XX   XX   XX   XX   XX   XX   XX   XX   XX
-            @ls               _             _
-	esc
+            esc                         XX
+  f1   f2   f3   f4   f5      XX   XX   XX   XX   XX
+  f6   f7   f8   f9   f10     XX   @lc  @la  @lm  _
+  f11  f12  XX   XX   XX      XX   XX   XX   XX   XX
+            @ls            _            _
+	
 )
 
 (defalias
@@ -117,10 +135,12 @@
   mwr (mwheel-right 50 120)
 )
 
-;;---------------------------------------------------------------------------;;
-;;                                  Aliases                                  ;;
-;;---------------------------------------------------------------------------;;
-;; Qwerty/Colemak Windows/Linux aliases
+
+;;--------------------------------------------------------------------------;;
+;;                                  Aliases                                 ;;
+;;--------------------------------------------------------------------------;;
+;;                    Qwerty/Colemak Windows/Linux aliases                  ;;
+;;                                                                          ;;
 
 ;; Navigation layer
 (defalias
@@ -137,6 +157,7 @@
   , ,
   . .
 
+  ;; Cross-platform in any terminal emulator or program
   cp  (macro C-ins)
   pst (macro S-ins)
   cut   (macro S-del)
@@ -188,13 +209,15 @@
   lc lctl
 )
 
-;;---------------------------------------------------------------------------;;
-;;                               Extra config                                ;;
-;;---------------------------------------------------------------------------;;
+
+;;--------------------------------------------------------------------------;;
+;;                               Extra config                               ;;
+;;--------------------------------------------------------------------------;;
+;;                                                                          ;;
 
 (defcfg  
-  process-unmapped-keys yes       ;; Enabled makes kanata process keys that are not defined in defsrc
-  windows-altgr cancel-lctl-press ;; Fixes altgr for Windows (see Arsenik issue #22)
+  process-unmapped-keys yes       ;; Passthrough keys not defined in defsrc
+  windows-altgr cancel-lctl-press ;; Fixes altgr for Windows
 )
 
-;; vim: set ft=lisp
+;; vim: set ft=lisp   ????
