@@ -9,47 +9,192 @@
 ;; Timing variables for tap-hold effects.
 (defvar
   ;; The key must be pressed twice in 200ms to enable repetitions.
-  tap_timeout 150
+  tap_timeout 200
   ;; The key must be held 200ms to become a layer shift.
   hold_timeout 200
   ;; Slightly higher value for typing keys, to prevent unexpected hold effect.
-  long_hold_timeout 200
+  long_hold_timeout 250
 )
 
-;;-----------------------------------------------------------------------------
-;; Original key arrangement on your keyboard: Pc
+;;---------------------------------------------------------------------------;;
+;;                                  Source                                   ;;
+;;---------------------------------------------------------------------------;;
 
-(include defsrc/pc.kbd)  ;; PC, standard finger assignment
+(defsrc
+  1    2    3    4    5  bspc   6    7    8    9    0
+  q    w    e    r    t         y    u    i    o    p
+  a    s    d    f    g         h    j    k    l    ;
+  z    x    c    v    b    <    n    m    ,    .    /
+            lalt          spc             ralt
+  caps
+)
 
-;;-----------------------------------------------------------------------------
-;; `Base` layer: 
+;;---------------------------------------------------------------------------;;
+;;                                  Layers                                   ;;
+;;---------------------------------------------------------------------------;;
 
-(include deflayer/base_lt_hrm.kbd)  ;; layer-taps + home-row mods
+;;----------------------------------------;;
+;;               Base Layer               ;;
+;;----------------------------------------;;
+;; Layer-taps + home-row mods
 
-;;-----------------------------------------------------------------------------
-;; `Symbols` layer
+(deflayer base
+  _    _    _    _    _    _    _    _    _    _    _
+  q    w    e    r    t         y    u    i    o    p
+  @aa    @ss  @dd  @ff  g         h    @jj  @kk  @ll  @rsft
+  z    x    c    v    b    <    n    m    ,    .    /
+            @sft          @nav            @sym
+	grave
+)
 
-(include deflayer/symbols_lafayette_num.kbd)  ;; AltGr prog layer + NumRow layers
+;; Timing variables are defined in `kanata.kbd` file.
 
-;;-----------------------------------------------------------------------------
-;; `Navigation` layer:
+(defalias
+  ;; Main mod-tap: Nav layer when held, Space when tapped.
+  nav (tap-hold $tap_timeout $long_hold_timeout spc (layer-while-held navigation))
 
-(include deflayer/navigation_vim.kbd)  ;; HJKL + NumPad on [Space]+[Q]
+  sft (tap-hold $tap_timeout $hold_timeout bspc lsft)
+  sym (tap-hold $tap_timeout $hold_timeout ret (layer-while-held symbols))
 
-;;-----------------------------------------------------------------------------
-;; Aliases for `Symbols` and `Navigation` layers
+  ;; Home-row mods
+  aa (tap-hold $tap_timeout $long_hold_timeout a lsft)
+  ss (tap-hold $tap_timeout $long_hold_timeout s lmet)
+  dd (tap-hold $tap_timeout $long_hold_timeout d lalt)
+  ff (tap-hold $tap_timeout $long_hold_timeout f lctl)
+  
+  jj (tap-hold $tap_timeout $long_hold_timeout j rctl)
+  kk (tap-hold $tap_timeout $long_hold_timeout k ralt)
+  ll (tap-hold $tap_timeout $long_hold_timeout l rmet)
+  rsft (tap-hold $tap_timeout $long_hold_timeout ; rsft)
+)
 
-(include defalias/qwerty_pc.kbd)  ;; Qwerty‑Lafayette PC
+;;----------------------------------------;;
+;;              Symbol Layer              ;;
+;;----------------------------------------;;
+;; Lafayette/Ergo‑L AltGr programmation layer
 
-;;-----------------------------------------------------------------------------
-;; Extra configuration
-;; You should not modify this, only if you need to.
+(deflayer symbols
+  AG-1 AG-2 AG-3 AG-4 AG-5 XX   AG-6 AG-7 AG-8 AG-9 AG-0
+  @^   @<   @>   @$   @%        @@   @&   @*   @'   @`
+  @{   @pl  @pr  @}   @=        @\   @+   @-   @/   @''
+  @~   @[   @]   @_   @#   XX   @|   @!   @;   @:   @?
+            _           spc             _
+  esc
+)
 
-(defcfg
-  ;; Enabled makes kanata process keys that are not defined in defsrc
-  ;; Fixes altgr for Windows (see Arsenik issue #22)
-  process-unmapped-keys yes
-  windows-altgr cancel-lctl-press
+;;----------------------------------------;;
+;;              Vim-Navigation Layer              ;;
+;;----------------------------------------;;
+;; Vim-like arrows on HJKL, home/end page up/down
+;; The `lrld` action stands for "live reload".
+
+(deflayer navigation
+  M-1  M-2  M-3  M-4  M-5  lrld M-6  M-7  M-8  M-9  M-0
+  @1   @2   @3   @4   @5        @6   @7   @8   @9   @0
+  @ls  @lm  @la  @lc  tab       lft  down up   rght @fun
+  @udo @cp  @pst @cut @rdo  _   ins  pgdn pgup home end
+            del             _             esc
+	esc
+)
+
+;; function keys
+(deflayer funpad
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  f1   f2   f3   f4   f5        XX   XX   XX   XX   XX
+  f6   f7   f8   f9   f10       XX   @lc  @la  @lm  _
+  f11  f12  XX   XX   XX   XX   XX   XX   XX   XX   XX
+            @ls               _             _
+	esc
+)
+
+(defalias
+  fun (layer-while-held funpad)
+
+  ;; Mouse wheel emulation
+  mwu (mwheel-up    50 120)
+  mwd (mwheel-down  50 120)
+  mwl (mwheel-left  50 120)
+  mwr (mwheel-right 50 120)
+)
+
+;;---------------------------------------------------------------------------;;
+;;                                  Aliases                                  ;;
+;;---------------------------------------------------------------------------;;
+;; Qwerty/Colemak Windows/Linux aliases
+
+;; Navigation layer
+(defalias
+  0 0
+  1 1
+  2 2
+  3 3
+  4 4
+  5 5
+  6 6
+  7 7
+  8 8
+  9 9
+  , ,
+  . .
+
+  cp  (macro C-ins)
+  pst (macro S-ins)
+  cut   (macro S-del)
+  udo  (macro C-z)
+  rdo  (macro C-y)
+)
+
+;; Symbols layer
+(defalias
+  ^  S-6
+  <  S-,
+  >  S-.
+  $  S-4
+  %  S-5
+  @  S-2
+  &  S-7
+  *  S-8
+  '  '
+  `  `
+
+  {  S-[
+  pl S-9
+  pr S-0
+  }  S-]
+  =  =
+  \  \
+  +  S-=
+  -  -
+  /  /
+  '' S-'
+
+  ~  S-`
+  [  [
+  ]  ]
+  _  S--
+  #  S-3
+  |  S-\
+  !  S-1
+  ;  ;
+  :  S-;
+  ?  S-/
+)
+
+;; Shorten
+(defalias
+  ls lshift
+  lm lmet
+  la lalt
+  lc lctl
+)
+
+;;---------------------------------------------------------------------------;;
+;;                               Extra config                                ;;
+;;---------------------------------------------------------------------------;;
+
+(defcfg  
+  process-unmapped-keys yes       ;; Enabled makes kanata process keys that are not defined in defsrc
+  windows-altgr cancel-lctl-press ;; Fixes altgr for Windows (see Arsenik issue #22)
 )
 
 ;; vim: set ft=lisp
