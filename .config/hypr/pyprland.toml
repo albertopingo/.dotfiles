@@ -1,2 +1,2 @@
 [pyprland]
-plugins = ["scratchpads", "nvtop"]
+plugins = ["scratchpads"]

@@ -1,0 +1,32 @@
+{
+  "include": [
+    "~/.config/waybar/modules/custom-notifications.jsonc",
+    "~/.config/waybar/modules/hyprland-language.jsonc",
+    "~/.config/waybar/modules/hyprland-workspaces.jsonc",
+    "~/.config/waybar/modules/clock-1.jsonc",
+    "~/.config/waybar/modules/pulseaudio.jsonc",
+	"~/.config/waybar/modules/bluetooth.jsonc",
+	"~/.config/waybar/modules/battery.jsonc",  
+	"~/.config/waybar/modules/cpu.jsonc",
+    "~/.config/waybar/modules/custom-gpu-usage.jsonc",
+    "~/.config/waybar/modules/backlight.jsonc",
+],
+  "modules-left": [
+	"custom/notifications",  
+	"hyprland/language",
+	"hyprland/window",
+  ],
+  "modules-center": [
+    "hyprland/workspaces",
+
+  ],
+  "modules-right": [
+	"cpu",
+	"custom/gpu-usage",
+	"battery",
+    "bluetooth",
+	"backlight",    
+	"pulseaudio",
+    "clock#cl1",
+  ],
+}
