@@ -1,11 +1,13 @@
 local wezterm = require 'wezterm'
-local config = {}
+local config = {
+	enable_wayland = false,
 
-config.enable_wayland = false
+	max_fps = 144,
+	animation_fps = 144,
 
-config.color_scheme = "Catppuccin Mocha"
-config.font = wezterm.font 'JetBrains Mono NL'
-config.font_size = 12
-
+	color_scheme = "Catppuccin Mocha",
+	font = wezterm.font 'JetBrains Mono NL',
+	font_size = 12
+}
 
 return config
