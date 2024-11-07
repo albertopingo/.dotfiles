@@ -10,6 +10,7 @@
 	"~/.config/waybar/modules/cpu.jsonc",
     "~/.config/waybar/modules/custom-gpu-usage.jsonc",
     "~/.config/waybar/modules/backlight.jsonc",
+    "~/.config/waybar/modules/network.jsonc",
 ],
   "modules-left": [
 	"custom/notifications",  
@@ -17,16 +18,17 @@
 	"hyprland/window",
   ],
   "modules-center": [
-    "hyprland/workspaces",
+    	"hyprland/workspaces",
 
   ],
   "modules-right": [
 	"cpu",
 	"custom/gpu-usage",
 	"battery",
-    "bluetooth",
-	"backlight",    
+    	"bluetooth",
+	"backlight",
+	"network",    
 	"pulseaudio",
-    "clock#cl1",
+    	"clock#cl1",
   ],
 }
