@@ -38,4 +38,9 @@ setopt hist_ignore_space
 # setopt hist_ignore_dups
 # setopt hist_find_no_dups
 
+# Alias
+alias ls="ls --color"
 alias config="/usr/bin/git --git-dir=/home/pingo/.cfg --work-tree=/home/pingo"
+
+# Fzf
+eval "$(fzf --zsh)"
