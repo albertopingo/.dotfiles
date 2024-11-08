@@ -12,7 +12,7 @@
 ;;                                                                          ;;
 ;;                                                                          ;;
 ;; Notes:                                                                   ;;
-;; - Backspace only for live-reload                                         ;;
+;; - Key 'backspace' only for live-reload                                         ;;
 ;; - From 33 to 34 keys - Added Capslock as Esc (Not needed, testing)       ;;
 ;;                                                                          ;;
 
@@ -37,12 +37,12 @@
 ;;                                                                          ;;
 
 (defsrc
-            caps                          bspc
-  q    w    e    r    t         y    u    i    o    p
-  a    s    d    f    g         h    j    k    l    ;
-  z    x    c    v    b         n    m    ,    .    /
-            lalt          spc             ralt
-  
+	esc      `    1    2    3    4    5    6    7    8    9    0    -    =  bspc
+	tab      q    w    e    r    t    y    u    i    o    p    [    ]    \  '
+	caps     a    s    d    f    g    h    j    k    l    ;                 ret
+	lshift   z    x    c    v    b    n    m    ,    .    /                 rshift
+	lctrl lmeta    lalt           spc            ralt          rmeta  menu  rctrl
+							 up lft down rght
 )
 
 
@@ -58,12 +58,12 @@
 ;;       Layer-taps + home-row mods       ;;
 
 (deflayer base
-            esc                          _
-  q    w    e    r    t        y    u    i    o    p
-  @aa  @ss  @dd  @ff  g        h    @jj  @kk  @ll  @rs
-  z    x    c    v    b        n    m    ,    .    /
-            @sft         @nav            @sym
-	
+	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX XX
+	tab      q    w    e    r    t    y    u    i    o    p    XX   XX   XX XX
+	esc      @aa  @ss  @dd  @ff  g    h    @jj  @kk  @ll  @rs               XX
+	lshift   z    x    c    v    b    n    m    ,    .    /                 rshift
+	XX       XX    @sft           @nav           @sym             XX   XX   XX
+							XX   XX   XX   XX
 )
 
 (defalias
@@ -94,11 +94,12 @@
 ;;  Lafayette/Ergo‑L Programmation layer  ;;
 
 (deflayer symbols
-            esc                          XX
-  @^   @<   @>   @$   @%       @@   @&   @*   @'   @`
-  @{   @pl  @pr  @}   @=       @\   @+   @-   @/   @''
-  @~   @[   @]   @_   @#       @|   @!   @;   @:   @?
-            _             spc            _  
+	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX XX
+	tab      @^   @<   @>   @$   @%   @@   @&   @*   @'   @`   XX   XX   XX XX
+	esc      @{   @pl  @pr  @}   @=   @\   @+   @-   @/   @''               XX
+	lshift   @~   @[   @]   @_   @#   @|   @!   @;   @:   @?            rshift
+	XX       XX     _              spc            _               XX   XX   XX
+							XX   XX   XX   XX
 )
 
 ;;----------------------------------------;;
@@ -108,21 +109,22 @@
 ;;       Live reload = `lrld` action      ;; 
 
 (deflayer navigation
-            esc                          lrld
-  @1   @2   @3   @4   @5       @6   @7   @8   @9   @0
-  @ls  @lm  @la  @lc  tab      lft  down up   rght @fun
-  @udo @cut @cp  @pst @rdo     ins  pgdn pgup home end
-            del             _            esc	
+	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX lrld
+	tab      @1   @2   @3   @4   @5   @6   @7   @8   @9   @0   XX   XX   XX XX
+	esc      @ls  @lm  @la  @lc  tab  lft  down up   rght @fun              XX
+	lshift   @udo @cut @cp  @pst @rdo ins  pgdn pgup home end           rshift
+	XX       XX     del             spc           esc             XX   XX   XX
+							XX   XX   XX   XX
 )
 
 ;; Sub-layer - Function keys
 (deflayer funpad
-            esc                         XX
-  f1   f2   f3   f4   f5      XX   XX   XX   XX   XX
-  f6   f7   f8   f9   f10     XX   @lc  @la  @lm  _
-  f11  f12  XX   XX   XX      XX   XX   XX   XX   XX
-            @ls            _            _
-	
+	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX XX
+	tab      f1   f2   f3   f4   f5   XX   XX   XX   XX   XX   XX   XX   XX XX
+	esc      f6   f7   f8   f9   f10  XX   @lc  @la  @lm  _                 XX
+	lshift   f11  f12  XX   XX   XX   XX   XX   XX   XX   XX            rshift
+	XX       XX     @ls             _              _              XX   XX   XX
+							XX   XX   XX   XX
 )
 
 (defalias
