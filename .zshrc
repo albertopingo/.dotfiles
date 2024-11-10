@@ -28,8 +28,8 @@ bindkey -v
 
 # History
 HISTFILE=~/.histfile
-HISTSIZE=1500
-SAVEHIST=5000
+HISTSIZE=500
+SAVEHIST=2000
 HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
