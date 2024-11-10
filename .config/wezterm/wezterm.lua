@@ -4,7 +4,6 @@ local config = {
 	enable_wayland = false,
 
 	max_fps = 144,
-	animation_fps = 144,
 
 	color_scheme = "rose-pine",
 	font = wezterm.font("JetBrains Mono NL"),
