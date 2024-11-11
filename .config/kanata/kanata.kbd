@@ -62,19 +62,19 @@
 	tab      q    w    e    r    t    y    u    i    o    p    XX   XX   XX XX
 	esc      @aa  @ss  @dd  @ff  g    h    @jj  @kk  @ll  @rs               XX
 	lshift   z    x    c    v    b    n    m    ,    .    /                 rshift
-	XX       XX    @sft           @nav           @sym             XX   XX   XX
+	XX       XX    @nav           @sym           @sft             XX   XX   XX
 							XX   XX   XX   XX
 )
 
 (defalias
   ;; Space tap / `Nav layer` held 
-  nav (tap-hold $tap_timeout $long_hold_timeout spc (layer-while-held navigation))
+  nav (tap-hold $tap_timeout $long_hold_timeout ret (layer-while-held navigation))
 
   ;; Backspace tap / Lshift held
   sft (tap-hold $tap_timeout $hold_timeout bspc lsft) ;; *Can be another layer if needed*
 
   ;; Enter tap / `Symbols layer` held
-  sym (tap-hold $tap_timeout $hold_timeout ret (layer-while-held symbols))
+  sym (tap-hold $tap_timeout $hold_timeout spc (layer-while-held symbols))
 
   ;; Home-row mods (HRM)
   aa (tap-hold $tap_timeout $long_hold_timeout a lsft)
@@ -96,8 +96,8 @@
 (deflayer symbols
 	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX XX
 	tab      @^   @<   @>   @$   @%   @@   @&   @*   @'   @`   XX   XX   XX XX
-	esc      @{   @pl  @pr  @}   @=   @\   @+   @-   @/   @''               XX
-	lshift   @~   @[   @]   @_   @#   @|   @!   @;   @:   @?            rshift
+	esc      @{   @pl  @pr  @}   @=   @\   @+   @-   XX   @:                XX
+	lshift   @~   @[   @]   @_   @#   @|   @!   XX   @''  @?            rshift
 	XX       XX     _              spc            _               XX   XX   XX
 							XX   XX   XX   XX
 )
@@ -113,7 +113,7 @@
 	tab      @1   @2   @3   @4   @5   @6   @7   @8   @9   @0   XX   XX   XX XX
 	esc      @ls  @lm  @la  @lc  tab  lft  down up   rght @fun              XX
 	lshift   @udo @cut @cp  @pst @rdo ins  pgdn pgup home end           rshift
-	XX       XX     del             spc           esc             XX   XX   XX
+	XX       XX     _             esc           del             XX   XX   XX
 							XX   XX   XX   XX
 )
 
