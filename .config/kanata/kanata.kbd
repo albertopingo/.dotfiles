@@ -24,9 +24,9 @@
 ;;                                                                          ;;
 
 (defvar
-  tap_timeout 180         ;; Press twice timing to enable repetitions  
-  hold_timeout 200        ;; Held time to become a layer shift  
-  long_hold_timeout 220   ;; Higher value for typing keys, prevent unexpected hold effect.
+  tap_timeout 150         ;; Press twice timing to enable repetitions
+  hold_timeout 200        ;; Held time to become a layer shift
+  long_hold_timeout 200   ;; Higher value for typing keys, prevent unexpected hold effect.
 )
 
 
@@ -42,7 +42,7 @@
 	caps     a    s    d    f    g    h    j    k    l    ;                 ret
 	lshift   z    x    c    v    b    n    m    ,    .    /                 rshift
 	lctrl lmeta    lalt           spc            ralt          rmeta  menu  rctrl
-							 up lft down rght
+	up lft down rght
 )
 
 
@@ -63,29 +63,32 @@
 	esc      @aa  @ss  @dd  @ff  g    h    @jj  @kk  @ll  @rs               XX
 	lshift   z    x    c    v    b    n    m    ,    .    /                 rshift
 	XX       XX    @nav           @sym           @sft             XX   XX   XX
-							XX   XX   XX   XX
+	XX   XX   XX   XX
 )
 
 (defalias
-  ;; Space tap / `Nav layer` held 
+  ;; Space tap / `Nav layer` held
   nav (tap-hold $tap_timeout $long_hold_timeout ret (layer-while-held navigation))
-
+ 
+  cb (multi C-bspc)
+  cbd (tap-dance 100 (bspc @cb))
+  
   ;; Backspace tap / Lshift held
-  sft (tap-hold $tap_timeout $hold_timeout bspc lsft) ;; *Can be another layer if needed*
+  sft (tap-hold $tap_timeout $hold_timeout @cbd lsft)
 
   ;; Enter tap / `Symbols layer` held
   sym (tap-hold $tap_timeout $hold_timeout spc (layer-while-held symbols))
-
+  
   ;; Home-row mods (HRM)
   aa (tap-hold $tap_timeout $long_hold_timeout a lsft)
   ss (tap-hold $tap_timeout $long_hold_timeout s lmet)
   dd (tap-hold $tap_timeout $long_hold_timeout d lalt)
   ff (tap-hold $tap_timeout $long_hold_timeout f lctl)
-  
+
   jj (tap-hold $tap_timeout $long_hold_timeout j rctl)
   kk (tap-hold $tap_timeout $long_hold_timeout k ralt)
   ll (tap-hold $tap_timeout $long_hold_timeout l rmet)
-  rs (tap-hold $tap_timeout $long_hold_timeout ; rsft) 
+  rs (tap-hold $tap_timeout $long_hold_timeout ; rsft)
 )
 
 ;;----------------------------------------;;
@@ -94,27 +97,31 @@
 ;;  Lafayette/Ergo‑L Programmation layer  ;;
 
 (deflayer symbols
-	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX XX
+	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX @gm
 	tab      @^   @<   @>   @$   @%   @@   @&   @*   @'   @`   XX   XX   XX XX
 	esc      @{   @pl  @pr  @}   @=   @\   @+   @-   XX   @:                XX
-	lshift   @~   @[   @]   @_   @#   @|   @!   XX   @''  @?            rshift
+	lshift   @~   @[   @]   @_   @#   @|   @!   XX   @''  @?                rshift
 	XX       XX     _              spc            _               XX   XX   XX
-							XX   XX   XX   XX
+	XX   XX   XX   XX
+)
+
+(defalias
+  gm (layer-while-held gaming)
 )
 
 ;;----------------------------------------;;
 ;;          Vim-Navigation Layer          ;;
 ;;----------------------------------------;;
 ;;         Vim-like arrows on HJKL        ;;
-;;       Live reload = `lrld` action      ;; 
+;;       Live reload = `lrld` action      ;;
 
 (deflayer navigation
 	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX lrld
 	tab      @1   @2   @3   @4   @5   @6   @7   @8   @9   @0   XX   XX   XX XX
 	esc      @ls  @lm  @la  @lc  tab  lft  down up   rght @fun              XX
-	lshift   @udo @cut @cp  @pst @rdo ins  pgdn pgup home end           rshift
-	XX       XX     _             esc           del             XX   XX   XX
-							XX   XX   XX   XX
+	lshift   @udo @cut @cp  @pst @rdo ins  pgdn pgup home end               rshift
+	XX       XX     _             esc            @del             XX   XX   XX
+	XX   XX   XX   XX
 )
 
 ;; Sub-layer - Function keys
@@ -122,13 +129,18 @@
 	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX XX
 	tab      f1   f2   f3   f4   f5   XX   XX   XX   XX   XX   XX   XX   XX XX
 	esc      f6   f7   f8   f9   f10  XX   @lc  @la  @lm  _                 XX
-	lshift   f11  f12  XX   XX   XX   XX   XX   XX   XX   XX            rshift
+	lshift   f11  f12  XX   XX   XX   XX   XX   XX   XX   XX                rshift
 	XX       XX     @ls             _              _              XX   XX   XX
-							XX   XX   XX   XX
+	XX   XX   XX   XX
 )
 
 (defalias
   fun (layer-while-held funpad)
+  
+  cd (multi C-del)
+  cdd (tap-dance 100 (del @cd))
+  del (tap-hold $tap_timeout $hold_timeout @cdd lsft)
+  
 
   ;; Mouse wheel emulation
   mwu (mwheel-up    50 120)
@@ -137,6 +149,44 @@
   mwr (mwheel-right 50 120)
 )
 
+;;--------------------------------------------------------------------------;;
+;;                               Gaming layers                              ;;
+;;--------------------------------------------------------------------------;;
+
+(deflayer gaming
+	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX XX
+	tab      q    w    e    r    @tm  y    u    i    o    p    XX   XX   XX XX
+	esc      a    s    d    f    g    h    j    k    l    ;                 XX
+	lshift   z    x    c    v    b    n    m    ,    .    /                 rshift
+	XX       XX     XX          XX             XX              XX   XX   XX
+	XX   XX   XX   XX
+)
+
+(defalias
+  tm (layer-switch trackmania)
+)
+
+;;----------------------------------------;;
+;;            Trackmania Layer            ;;
+;;----------------------------------------;;
+;;                                        ;;
+
+(deflayer trackmania
+	XX       XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX XX
+	tab      q    w    e    @5   t    ret  u    w    o    p    XX   XX   XX XX
+	esc      @1   @2   @3   @4   @kp1 g    a    s    d    @kp3              XX
+	del      z    x    c    @kp2 @kp7 n    m    o    .    @std              rshift
+	XX       XX     s           XX           bspc             XX   XX   XX
+	XX   XX   XX   XX
+)
+
+(defalias
+  std (layer-switch base)
+  kp1 Numpad1
+  kp2 Numpad2
+  kp3 Numpad3
+  kp7 Numpad7
+)
 
 ;;--------------------------------------------------------------------------;;
 ;;                                  Aliases                                 ;;
@@ -217,7 +267,7 @@
 ;;--------------------------------------------------------------------------;;
 ;;                                                                          ;;
 
-(defcfg  
+(defcfg
   process-unmapped-keys yes       ;; Passthrough keys not defined in defsrc
   windows-altgr cancel-lctl-press ;; Fixes altgr for Windows
 )
