@@ -42,7 +42,7 @@ setopt hist_ignore_space
 
 # Alias
 alias ls="ls --color"
-alias config="/usr/bin/git --git-dir=/home/pingo/.cfg --work-tree=/home/pingo"
+alias config="/usr/bin/git --git-dir=/home/biscotti/.cfg --work-tree=/home/biscotti"
 
 # Fzf
 eval "$(fzf --zsh)"
