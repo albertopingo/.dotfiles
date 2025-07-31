@@ -1,20 +1,13 @@
 return {
-    "neovim/nvim-lspconfig",
-    dependencies =
-    {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim"
-    },
-
-    config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup({
-            ensure_installed = {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+        ensure_installed = {
                 "typos_lsp",
                 "lua_ls",
                 "clangd",
                 "rust_analyzer",
 
+                -- install nodejs and npm
                 "html",
                 "ts_ls",
                 "cssls",
@@ -26,6 +19,9 @@ return {
                 "dockerls",
                 "cmake",
             },
-        })
-    end
+    },
+    dependencies = {
+        { "mason-org/mason.nvim", opts = {} },
+        "neovim/nvim-lspconfig",
+    },
 }
